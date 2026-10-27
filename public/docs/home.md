@@ -5954,15 +5954,21 @@ let data = encodeURIComponent(
 
 **必选参数 :**
 
-`tags`: 风格标签, 可通过 `/recommend/category/configs` 获取
+`tags`: 风格标签 ID, 多个 ID 用逗号分隔, 可通过 `/recommend/category/configs` 获取
 
-`category`: 风格标签的父ID, 可通过 `/recommend/category/configs` 获取
+`category`: 风格标签的父 ID, 可通过 `/recommend/category/configs` 获取
+
+`category` 和每个 `tags` ID 必须是非负安全整数（不超过 9007199254740991）。缺失、空值或无效参数返回 HTTP 400, 不向上游发送请求。
 
 !> 只能设置当前CategoryId下的tags, 不能设置其他CategoryId下的tags, 否则会报错
 
-**接口地址 :** `/recommend/category/config`
+**接口地址 :** `/recommend/category/set`
 
-**调用例子 :** `/recommend/category/config?tags=10004,10015&categoryId=1000`
+**调用例子 :** `/recommend/category/set?tags=10004,10015&category=1000`
+
+**兼容说明 :** 旧地址 `/recommend/category/config` 和旧参数名 `categoryId` 仍可使用, 两个地址均支持这两个参数名。若同时传入 `category` 和 `categoryId`, 以 `category` 为准；若 `category` 无效, 返回 HTTP 400, 不回退到 `categoryId`。
+
+**兼容调用例子 :** `/recommend/category/config?tags=10004,10015&categoryId=1000`
 
 ## 离线访问此文档
 

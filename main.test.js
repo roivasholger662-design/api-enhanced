@@ -1,6 +1,8 @@
 const assert = require('assert')
 const main = require('./main')
 
+require('./recommend_category.test')
+
 describe('methods in server.js', () => {
   it('has serveNcmApi', () => {
     assert.strictEqual(typeof main.serveNcmApi, 'function')
